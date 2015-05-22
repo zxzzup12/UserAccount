@@ -48,5 +48,23 @@ public class UserAccountService {
 	                return response;
 	}
 	
+        @DELETE
+	@Path("{accountkey}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response  deleteUser(@PathParam("accountKey") String accountKey)
+	{
+	PersistenceManager pm = PMF.getPersistenceManager();
+        long longKey = Long.parseLong(accountKey);
+        UserAccount ua =  pm.getObjectById(UserAccount.class,longKey);
+        
+        pm.deletePersistent(ua);
+        
+        Result result = new Result(true,"Success");
+        
+        Response response = Response.ok().entity(result).build();
+        
+        return  response;
+
+	
 
 }
