@@ -35,7 +35,18 @@ public class UserAccountService {
 		return response;
 
 	}
+       	@GET
+	@Path("GetUserAccount/{accountKey}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response  getUser(@PathParam("accountKey") String accountKey)
+	{
+	                PersistenceManager pm = PMF.getPersistenceManager();
+			Long longKey = Long.parseLong(accountKey);
+	                UserAccount ua =  pm.getObjectById(UserAccount.class,longKey);
 
+	                Response response = Response.ok().entity(ua).build();
+	                return response;
+	}
 	
 
 }
